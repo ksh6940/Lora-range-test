@@ -1,12 +1,15 @@
-int PushBtn = 7;  // 버튼 핀
+int PushBtn = 4;  // 버튼 핀
 int LED = 12;      // LED 핀
 
-int LED_state = LOW;  // LED 상태 (LOW 또는 HIGH)
+int LED_statAe = LOW;  // LED 상태 (LOW 또는 HIGH)
 int Btn_state = LOW;  // 이전 버튼 상태
 int Btn_newstate;     // 현재 버튼 상태
 
 unsigned long lastDebounceTime = 0;  // 마지막 디바운스 시간
 unsigned long debounceDelay = 50;    // 디바운스 지연 시간 (50ms)
+
+unsigned long lastLEDOnTime = 0;  // LED가 켜진 시간을 추적
+unsigned long LEDTimeout = 5000;  // LED가 켜져 있는 최대 시간 (5초)
 
 void setup() {
   Serial.begin(57600);  // 직렬 통신 시작
@@ -22,6 +25,11 @@ void loop() {
   // 버튼 상태 변화가 있을 때만 처리
   if (Btn_reading != Btn_state) {
     lastDebounceTime = millis();  // 상태 변화 시 디바운스 시간 갱신
+    Serial.print("Button state changed: ");
+    Serial.print("Previous: ");
+    Serial.print(Btn_state);
+    Serial.print(", New: ");
+    Serial.println(Btn_reading);
   }
 
   // 디바운스 후 상태 확인
@@ -34,6 +42,7 @@ void loop() {
         if (LED_state == LOW) {
           digitalWrite(LED, HIGH);  // LED 켜기
           LED_state = HIGH;  // LED 상태 변경
+          lastLEDOnTime = millis();  // LED 켜진 시간 기록
           Serial.println("LED ON, Command: AT+SEND=2, 1, H");
         }
       }
@@ -46,6 +55,13 @@ void loop() {
         }
       }
     }
+  }
+
+  // LED가 일정 시간 이상 켜져 있으면 자동으로 끄기
+  if (LED_state == HIGH && (millis() - lastLEDOnTime > LEDTimeout)) {
+    digitalWrite(LED, LOW);  // LED 끄기
+    LED_state = LOW;  // LED 상태 변경
+    Serial.println("LED OFF due to timeout.");
   }
 
   Btn_state = Btn_reading;  // 이전 버튼 상태 업데이트
