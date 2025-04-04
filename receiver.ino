@@ -12,6 +12,8 @@ SoftwareSerial mySerial(10, 11);  // RX, TX (0, 1은 기본 하드웨어 시리�
 
 File myFile;
 
+const int receiverAddress = 1;  // 수신기의 주소 (송신기의 주소와 일치해야 합니다)
+
 void setup() {
   Serial.begin(9600);
   mySerial.begin(9600);  // Rylr998 모듈과의 통신 속도 설정
@@ -21,6 +23,11 @@ void setup() {
 
   // LoRa 모듈 초기화
   mySerial.println("AT+MODE=0");  // 0: 수신 모드
+  delay(1000);
+
+  // 수신기 주소 설정 (송신기 주소가 1이라면 수신기 주소도 1로 설정)
+  mySerial.print("AT+ADDRESS=");
+  mySerial.println(receiverAddress);
   delay(1000);
 
   Serial.print("Initializing SD Card...");
