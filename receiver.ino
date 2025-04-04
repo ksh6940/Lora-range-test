@@ -54,9 +54,18 @@ void loop() {
     Serial.print("Received data: ");
     Serial.println(receivedData);
 
-    // 버튼이 눌렸을 때만 데이터를 파일에 저장
-    if (buttonState == HIGH) {
-      saveTestFile(receivedData);
+    // RSSI 값 읽기 (수신된 신호 강도)
+    mySerial.println("AT+RSSI");
+    delay(100);  // 짧은 시간 대기
+    if (mySerial.available()) {
+      String rssiData = mySerial.readString();
+      Serial.print("RSSI: ");
+      Serial.println(rssiData);  // RSSI 값 출력
+
+      // 수신된 데이터와 RSSI를 저장
+      if (buttonState == HIGH) {
+        saveTestFile(receivedData, rssiData);
+      }
     }
   }
 
@@ -64,13 +73,15 @@ void loop() {
 }
 
 // 수신된 데이터를 테스트 파일에 저장하는 함수
-void saveTestFile(String data) {
+void saveTestFile(String data, String rssi) {
   myFile = SD.open("test_data.csv", FILE_WRITE);
 
   if (myFile) {
     Serial.print("Writing to test_data.csv...");
     myFile.print("Received Data: ");
-    myFile.println(data);  // 수신된 데이터를 파일에 저장
+    myFile.print(data);  // 수신된 데이터를 파일에 저장
+    myFile.print(", RSSI: ");  // RSSI 값 추가
+    myFile.println(rssi);  // RSSI 값 저장
     myFile.close();
     Serial.println(" done.");
   } else {
