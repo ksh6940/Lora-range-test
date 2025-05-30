@@ -57,9 +57,17 @@ LoRa (Long Range) 통신 모듈의 거리별 신호 감쇠율(Attenuation Rate)�
 
 ---
 
+## 🔧 Data Processing & Visualization Program
+- Python을 통해 제작
+- 데이터 파일을 입력하면 주어진 변수에 따라 그래프를 표시하는 것이 목적
+
+**Install** : **제작 중**
+
+---
+
 ## 📬 연락처 (Contact)
-작성자: ksh6940
-문의: [GitHub Issues](https://github.com/ksh6940/Lora-range-test/issues)
+- 작성자: ksh6940
+- 문의: gsh6940@naver.com 또는 [Github Issues](https://github.com/ksh6940/Lora-range-test/issues)
 
 ---
 
