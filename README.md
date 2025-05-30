@@ -53,13 +53,16 @@ LoRa (Long Range) 통신 모듈의 거리별 신호 감쇠율(Attenuation Rate)�
 - Vercel V0를 통해 제작
 - 송신기와 연결하여 실험 중 진행 상황을 확인 목적
 
-**url** : [LoRa Signal Tracker](https://v0-arduino-lo-ra-monitor.vercel.app/)
+**Url** : [LoRa Signal Tracker](https://v0-arduino-lo-ra-monitor.vercel.app/)
 
 ---
 
 ## 🔧 Data Processing & Visualization Program
 - Python을 통해 제작
 - 데이터 파일을 입력하면 주어진 변수에 따라 그래프를 표시하는 것이 목적
+
+**Url** : [Colab](https://colab.research.google.com/drive/1KoaYKbXfOe9HOfNEdkh9wT8DkH-_Zmhy?usp=sharing)
+* 메인 프로그램 범주 안의 코드만을 실행해야 함
 
 **Install** : **제작 중**
 
