@@ -3,7 +3,7 @@
 #include <SPI.h>
 
 const int chipSelect = 7;  // SD 카드 CS 핀
-SoftwareSerial loraSerial(10, 11); // D10 = RX, D11 = TX (※ 0, 1 대신 사용 추천)
+SoftwareSerial loraSerial(0, 1); // D10 = RX, D11 = TX (※ 0Q, 1 대신 사용 추천)
 
 File logFile;
 bool setupComplete = false;
